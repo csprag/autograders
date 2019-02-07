@@ -1,0 +1,28 @@
+<p>Hello {{uniq}},</p>
+
+<p>Your {{assignment_name}} has been graded. Your raw score is
+{{raw_score}}/{{total_possible}}. Your final score is
+{{final_score}}/{{total_possible}}.</p>
+
+<p>If you would like more information on how your assignment was graded, you can
+look over the <a href="{{autograder_link}}">autograder script</a>.</p>
+
+<dl>
+    {% for name, result in testcases.items() %}
+    <dl>
+        <dt>
+        <strong>{{name}}</strong>:
+        {{result['message']}}
+        [{{result['score']}}/{{result['points_possible']}}]
+        </dt>
+        {% if result['additional_text'] %}
+        <dd><pre>{{result['additional_text']}}</pre></dd>
+        {% endif %}
+    </dl>
+    {% endfor %}
+</dl>
+
+<p>If you believe there to be an issue with the grading of your assignment
+reply to this email by {{regrade_date}}.</p>
+
+<p>&ndash; c4cs staff</p>
