@@ -1,4 +1,4 @@
-c4cs-autograders
+CS Pragmatics - Autograders
 ------------------
 
 An assortment of scripts to help manage autograding of assignments.
@@ -36,8 +36,8 @@ $ ./grade.py load_results write_emails \
 $ ./grade.py send_emails \
     --loc="/tmp/hw10_emails" \
     --subject="[c4cs] HW10 Graded" \
-    --smtp-username="mterwil" \
-    --cc="mterwil@umich.edu"
+    --smtp-username="csprag-admin" \
+    --cc="csprag-admin@umich.edu"
 
 # and each command and subcommand has help
 $ ./grade.py load_results --help
