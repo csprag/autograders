@@ -26,7 +26,7 @@ import git # pip install gitpython
 import sh
 from sh import mkdir, rm
 
-GRADES_PATH = '/Users/Tarun/Documents/GH_autograders/autograders/git-II/'
+GRADES_PATH = '/home/eecs201/staff-utilities/'
 
 if 'rerun' not in sys.argv:
     if os.path.exists('/tmp/q1') or os.path.exists('/tmp/q2a') or os.path.exists('/tmp/q2b'):
@@ -45,8 +45,7 @@ else:
 
 mkdir('-p', TIMEDIR)
 
-ACTUALLY_SEND = True
-
+ACTUALLY_SEND = False
 
 def uniqs():
     with open(GRADES_PATH + 'gradebook.csv') as csvfile:
@@ -74,10 +73,10 @@ SMTP_PASS = os.getenv('SMTP_PASS')
 sm = None
 
 def send_email(uniqname, body):
-    SUBJECT = "[C4CS] Homework 6 Graded"
-    FROM = 'c4cs-staff@umich.edu'
+    SUBJECT = "[C4CS] Homework 5 Repository Check"
+    FROM = 'csprag-admin@umich.edu'
     TO = uniqname + '@umich.edu'
-    REPLY_TO_ADDRESS = 'c4cs-staff@umich.edu'
+    REPLY_TO_ADDRESS = 'csprag-admin@umich.edu'
     # TO = 'tarunsk@umich.edu'
     encoding = 'html'
 
@@ -104,7 +103,7 @@ def send_email(uniqname, body):
 def clone(root, uniqname, project):
     into='/tmp/'+root
     mkdir('-p', into)
-    url='git@gitlab.eecs.umich.edu:' + uniqname + '/' + project
+    url='git@gitlab.umich.edu:' + uniqname + '/' + project
     to_path=into + '/' + uniqname
 
     if 'rerun' in sys.argv:
@@ -145,7 +144,7 @@ TOTAL_COMMITS_THRESHOLD = 5
 
 def grade_q1(uniqname):
     try:
-        repo,path = clone('q1', uniqname, 'c4cs-f18-wk6')
+        repo,path = clone('q1', uniqname, 'csprag-w19-wk5')
     except sh.ErrorReturnCode as e:
         text = '''
 <p><strong>Error! Failed to clone {}</strong></p>
@@ -158,7 +157,7 @@ def grade_q1(uniqname):
 <pre>
 {}
 </pre>
-'''.format('c4cs-f18-wk6', e.full_cmd, e.stdout.decode('utf8'), e.stderr.decode('utf8'))
+'''.format('csprag-w19-wk5', e.full_cmd, e.stdout.decode('utf8'), e.stderr.decode('utf8'))
         return 0, text
 
     non_merge_count = 0
@@ -323,7 +322,7 @@ even just an extra line or two as a quick note.\
 
 def grade_q2a(uniqname):
     try:
-        repo,path = clone('q2a', uniqname, 'c4cs-f18-conflict1')
+        repo,path = clone('q2a', uniqname, 'csprag-git-conflict1')
     except sh.ErrorReturnCode as e:
         text = '''
 <p><strong>Error! Failed to clone {}</strong></p>
@@ -336,7 +335,7 @@ def grade_q2a(uniqname):
 <pre>
 {}
 </pre>
-'''.format('c4cs-f18-conflict1', e.full_cmd, e.stdout.decode('utf8'), e.stderr.decode('utf8'))
+'''.format('csprag-git-conflict1', e.full_cmd, e.stdout.decode('utf8'), e.stderr.decode('utf8'))
         return 0, text
 
 
@@ -410,7 +409,7 @@ Success
 
 def grade_q2b(uniqname):
     try:
-        repo,path = clone('q2b', uniqname, 'c4cs-f18-conflict2')
+        repo,path = clone('q2b', uniqname, 'csprag-git-conflict2')
     except sh.ErrorReturnCode as e:
         text = '''
 <p><strong>Error! Failed to clone {}</strong></p>
@@ -423,7 +422,7 @@ def grade_q2b(uniqname):
 <pre>
 {}
 </pre>
-'''.format('c4cs-f18-conflict2', e.full_cmd, e.stdout.decode('utf8'), e.stderr.decode('utf8'))
+'''.format('csprag-git-conflict2', e.full_cmd, e.stdout.decode('utf8'), e.stderr.decode('utf8'))
         return 0, text
 
     with sh.pushd(path):
@@ -467,7 +466,7 @@ def grade():
         email = '''
 <p>Hello {},</p>
 <br />
-<p>Your Homework&nbsp;6 has been re-graded.</p>
+<p>Your Homework&nbsp;5 has been graded.</p>
 <p>Your raw score is {:1.1f}/4.0</p>
 <p>Your final score is {}/4</p>
 '''
@@ -492,9 +491,9 @@ def grade():
             email += '''
 <hr />
 <p>If you believe there to be an issue with the grading of your assignment
-reply to this email before Saturday, February&nbsp;24.</p>
+reply to this email before Friday, March&nbsp;22.</p>
 <p>If you would like more information on how your assignment was graded, you can
-look over the <a href="https://github.com/c4cs/autograders/tree/master/git-II">autograder script</a>.</p>
+look over the <a href="https://github.com/csprag/autograders/blob/master/git-II/grade.py">autograder script</a>.</p>
 '''
 
         email += '''
@@ -531,9 +530,9 @@ access all of your repositories for this assignment.</p>
 <p><strong>NOTE:</strong> Repositories must be named exactly correctly!</p>
 '''.format(name)
     for q, repo in (
-            ('1', 'c4cs-f18-wk6'),
-            ('2a', 'c4cs-f18-conflict1'),
-            ('2b', 'c4cs-f18-conflict2'),
+            ('1', 'csprag-w19-wk5'),
+            ('2a', 'csprag-git-conflict1'),
+            ('2b', 'csprag-git-conflict2'),
             ):
         try:
             email += '<hr /><h3>Question {} ({})</h3>'.format(q,repo)
