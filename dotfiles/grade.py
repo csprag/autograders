@@ -23,7 +23,7 @@ def get_test_cases_and_submissions(submissionsf):
 
     def gen_submissions():
         for uniq, repo in uniq_to_repo.items():
-            yield uniq, (repo, '/tmp/c4cs-dotfiles/{}'.format(uniq))
+            yield uniq, (repo, '/tmp/csprag-dotfiles/{}'.format(uniq))
 
     with open(submissionsf) as csvf:
         for row in csv.DictReader(csvf):

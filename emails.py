@@ -30,9 +30,9 @@ def write_emails(data, assignment_name, total_points, regrade_date, autograder_l
                 ))
 
 def send_email(uniqname, body, SUBJECT, CC):
-    FROM = 'c4cs-staff@umich.edu'
+    FROM = 'csprag-admin@umich.edu'
     TO = uniqname + '@umich.edu'
-    REPLY_TO_ADDRESS = 'c4cs-staff@umich.edu'
+    REPLY_TO_ADDRESS = 'csprag-admin@umich.edu'
     encoding = 'html'
 
     cprint('Sending {}'.format(TO), 'green')
