@@ -45,7 +45,7 @@ else:
 
 mkdir('-p', TIMEDIR)
 
-ACTUALLY_SEND = False
+ACTUALLY_SEND = True
 
 def uniqs():
     with open(GRADES_PATH + 'gradebook.csv') as csvfile:
@@ -73,7 +73,7 @@ SMTP_PASS = os.getenv('SMTP_PASS')
 sm = None
 
 def send_email(uniqname, body):
-    SUBJECT = "[C4CS] Homework 5 Repository Check"
+    SUBJECT = "[CSPrag] Homework 5 Repository Check"
     FROM = 'csprag-admin@umich.edu'
     TO = uniqname + '@umich.edu'
     REPLY_TO_ADDRESS = 'csprag-admin@umich.edu'
@@ -491,7 +491,7 @@ def grade():
             email += '''
 <hr />
 <p>If you believe there to be an issue with the grading of your assignment
-reply to this email before Friday, March&nbsp;22.</p>
+reply to this email before Friday, March&nbsp;29 with the subject line [CSPrag] Homework 5 Regrade Request.</p>
 <p>If you would like more information on how your assignment was graded, you can
 look over the <a href="https://github.com/csprag/autograders/blob/master/git-II/grade.py">autograder script</a>.</p>
 '''
